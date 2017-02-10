@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="10" height="10" tilewidth="16" tileheight="16" nextobjectid="1">
+ <tileset firstgid="1" name="tiny_dungeon_world" tilewidth="16" tileheight="16" tilecount="304" columns="16">
+  <image source="../../../../Premium Content/sprites/oryx_tiny_dungeon/tiny_dungeon_world.png" width="256" height="304"/>
+  <tile id="130">
+   <animation>
+    <frame tileid="130" duration="750"/>
+    <frame tileid="131" duration="750"/>
+   </animation>
+  </tile>
+  <tile id="132">
+   <animation>
+    <frame tileid="132" duration="750"/>
+    <frame tileid="133" duration="750"/>
+   </animation>
+  </tile>
+  <tile id="156">
+   <animation>
+    <frame tileid="156" duration="750"/>
+    <frame tileid="157" duration="750"/>
+   </animation>
+  </tile>
+  <tile id="158">
+   <animation>
+    <frame tileid="158" duration="750"/>
+    <frame tileid="159" duration="750"/>
+   </animation>
+  </tile>
+  <tile id="197">
+   <animation>
+    <frame tileid="197" duration="250"/>
+    <frame tileid="198" duration="250"/>
+   </animation>
+  </tile>
+  <tile id="199">
+   <animation>
+    <frame tileid="199" duration="250"/>
+    <frame tileid="200" duration="250"/>
+   </animation>
+  </tile>
+  <tile id="232">
+   <animation>
+    <frame tileid="232" duration="750"/>
+    <frame tileid="236" duration="750"/>
+   </animation>
+  </tile>
+  <tile id="233">
+   <animation>
+    <frame tileid="233" duration="750"/>
+    <frame tileid="237" duration="750"/>
+   </animation>
+  </tile>
+  <tile id="234">
+   <animation>
+    <frame tileid="238" duration="750"/>
+    <frame tileid="234" duration="750"/>
+   </animation>
+  </tile>
+  <tile id="268">
+   <animation>
+    <frame tileid="268" duration="250"/>
+    <frame tileid="269" duration="250"/>
+   </animation>
+  </tile>
+  <tile id="273">
+   <animation>
+    <frame tileid="273" duration="5000"/>
+    <frame tileid="274" duration="5000"/>
+   </animation>
+  </tile>
+  <tile id="284">
+   <animation>
+    <frame tileid="272" duration="5000"/>
+    <frame tileid="284" duration="5000"/>
+   </animation>
+  </tile>
+  <tile id="291">
+   <animation>
+    <frame tileid="291" duration="250"/>
+    <frame tileid="292" duration="250"/>
+   </animation>
+  </tile>
+  <tile id="293">
+   <animation>
+    <frame tileid="293" duration="250"/>
+    <frame tileid="294" duration="250"/>
+   </animation>
+  </tile>
+  <tile id="295">
+   <animation>
+    <frame tileid="295" duration="250"/>
+    <frame tileid="296" duration="250"/>
+   </animation>
+  </tile>
+  <tile id="297">
+   <animation>
+    <frame tileid="297" duration="750"/>
+    <frame tileid="298" duration="750"/>
+   </animation>
+  </tile>
+ </tileset>
+ <tileset firstgid="305" name="tiny_dungeon_items" tilewidth="16" tileheight="16" tilecount="96" columns="16">
+  <image source="../../../../Premium Content/sprites/oryx_tiny_dungeon/tiny_dungeon_items.png" width="256" height="96"/>
+ </tileset>
+ <layer name="Background" width="10" height="10">
+  <data encoding="csv">
+90,90,90,90,90,90,90,90,90,90,
+91,280,278,279,90,90,90,90,90,90,
+91,276,277,276,90,90,90,90,90,90,
+91,285,81,285,89,90,90,90,90,90,
+91,91,91,91,91,90,90,90,90,90,
+91,91,91,91,89,91,91,90,90,90,
+91,91,91,91,91,91,91,91,91,90,
+89,89,89,89,89,89,89,89,89,89,
+89,89,89,89,89,89,89,89,89,89,
+89,89,89,89,89,89,89,89,89,89
+</data>
+ </layer>
+ <layer name="Object" width="10" height="10">
+  <data encoding="csv">
+0,0,0,0,0,263,0,0,0,263,
+0,0,0,0,0,0,92,263,0,0,
+0,0,0,0,0,323,0,0,0,0,
+0,0,161,0,0,0,0,228,263,0,
+0,0,0,0,0,0,0,0,0,0,
+263,0,0,0,0,0,263,0,0,263,
+0,0,263,0,228,0,0,0,0,92,
+0,0,0,0,0,0,0,263,263,0,
+0,92,263,0,0,263,0,0,0,0,
+0,0,0,0,0,0,0,0,0,228
+</data>
+ </layer>
+</map>
