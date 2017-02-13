@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" backgroundcolor="#000000" nextobjectid="50">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="100" tilewidth="16" tileheight="16" backgroundcolor="#000000" nextobjectid="51">
  <tileset firstgid="1" name="tiny_dungeon_world" tilewidth="16" tileheight="16" tilecount="304" columns="16">
   <image source="../img/tiny_dungeon_world.png" trans="ffffff" width="256" height="304"/>
  </tileset>
@@ -165,11 +165,20 @@
 </data>
  </layer>
  <objectgroup name="Objects">
-  <object id="49" name="mainPlayer" x="112" y="80" width="16" height="16">
+  <object id="49" name="MainPlayer" x="112" y="80" width="16" height="16">
    <properties>
     <property name="frameheight" value="16"/>
     <property name="framewidth" value="16"/>
     <property name="image" value="tiny_dungeon_monsters"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="zones">
+  <object id="50" name="MobZone" x="16" y="176" width="112" height="64">
+   <properties>
+    <property name="level" value="10"/>
+    <property name="mob" value="Spider"/>
+    <property name="mobcount" value="5"/>
    </properties>
   </object>
  </objectgroup>

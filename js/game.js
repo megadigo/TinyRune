@@ -41,7 +41,9 @@ var game = {
     me.state.set(me.state.PLAY, new game.PlayScreen());
 
     // add our player entity in the entity pool
-    me.pool.register("mainPlayer", game.PlayerEntity);
+    me.pool.register("MainPlayer", game.PlayerEntity);
+    me.pool.register("MobZone", game.MobZone);
+    me.pool.register("Spider", game.Spider);
 
     // enable the keyboard
     me.input.bindKey(me.input.KEY.LEFT,  "left");

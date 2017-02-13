@@ -12,7 +12,7 @@ game.PlayerEntity = me.Entity.extend({
     // set the default horizontal & vertical speed (accel vector)
     this.body.setVelocity(1, 1);
     this.body.gravity = 0;
-
+    
     // set the display to follow our position on both axis
     me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
 

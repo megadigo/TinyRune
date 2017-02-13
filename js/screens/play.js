@@ -6,7 +6,29 @@ game.PlayScreen = me.ScreenObject.extend({
 
          // load a level
         me.levelDirector.loadLevel("britannia");
-
+        // mobzones
+        var mobzones = me.game.world.getChildByName("MobZone");
+        var mobzone = {};
+		var newmob = {};
+        for (var i=0;i<mobzones.length;i++){
+            mobzone=mobzones[i];
+            var level = mobzone.level;
+            var mob = mobzone.mob;
+            var mobcount = mobzone.mobcount;
+            var mobzx = mobzone.pos.x;
+            var mobzy = mobzone.pos.y;
+			var mobzz = mobzone.z;
+            var mobzw = mobzone.width;
+            var mobzh = mobzone.height;
+            for (var c=0;c<mobcount;c++){
+                var mobx = mobzx + Math.round(Math.random() * mobzw,0);
+                var moby = mobzy + Math.round(Math.random() * mobzh,0);
+                newmob = me.pool.pull(mob, mobx, moby);
+				newmob.hp=10;
+                me.game.world.addChild(newmob, mobzz);
+            }
+        }
+        me.game.world.sort();
 
         // reset the score
         game.data.score = 0;
