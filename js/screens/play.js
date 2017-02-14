@@ -6,10 +6,14 @@ game.PlayScreen = me.ScreenObject.extend({
 
          // load a level
         me.levelDirector.loadLevel("britannia");
+
+        var player = me.game.world.getChildByName("PlayerEntity")[0];
+        
         // mobzones
         var mobzones = me.game.world.getChildByName("MobZone");
         var mobzone = {};
 		var newmob = {};
+        var settings = {};
         for (var i=0;i<mobzones.length;i++){
             mobzone=mobzones[i];
             var level = mobzone.level;
@@ -23,13 +27,15 @@ game.PlayScreen = me.ScreenObject.extend({
             for (var c=0;c<mobcount;c++){
                 var mobx = mobzx + Math.round(Math.random() * mobzw,0);
                 var moby = mobzy + Math.round(Math.random() * mobzh,0);
-                newmob = me.pool.pull(mob, mobx, moby);
+                newmob = me.pool.pull(mob, mobx, moby, settings);
 				newmob.hp=10;
                 me.game.world.addChild(newmob, mobzz);
             }
         } 
         me.game.world.sort();
+    
 
+        
         // reset the score
         game.data.score = 0;
 

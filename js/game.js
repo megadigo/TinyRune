@@ -1,8 +1,11 @@
+/* Globals */
+
 /* game namespace */
 var game = {
   /**
    * an object where to store game global data
    */
+  
   data : {
     score : 0
   },
@@ -10,7 +13,7 @@ var game = {
   // Run on page load.
   onload : function () {
     // Initialize the video.
-    if (!me.video.init(160, 120, {wrapper : "screen", scale : "auto"})) {
+    if (!me.video.init(160, 120, {wrapper : "screen", scale : "none"})) {
       alert("Your browser does not support HTML5 canvas.");
       return;
     }
@@ -44,6 +47,7 @@ var game = {
     me.pool.register("MainPlayer", game.PlayerEntity);
     me.pool.register("MobZone", game.MobZone);
     me.pool.register("Spider", game.Spider);
+    me.pool.register("SpiderBoss", game.SpiderBoss);
 
     // enable the keyboard
     me.input.bindKey(me.input.KEY.LEFT,  "left");

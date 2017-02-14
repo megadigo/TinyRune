@@ -4,9 +4,10 @@
 game.Spider = me.Entity.extend({
   init: function (x, y, settings) {
     
-  
-    // settings
+		// player for distances
 
+
+    // settings
     settings.image = "tiny_dungeon_monsters";
     settings.type = 'mob';
     settings.width = 16;
@@ -14,7 +15,7 @@ game.Spider = me.Entity.extend({
     settings.framewidth =  16;
     settings.frameheight = 16;
     // redefine the default shape (used to define path) with a shape matching the renderable
-    settings.shapes[0] = new me.Rect(0, 0, settings.framewidth, settings.frameheight);
+    //settings.shapes[0] = new me.Rect(0, 0, settings.framewidth, settings.frameheight);
     // call the parent constructor
     this._super(me.Entity, 'init', [x, y , settings]);
     // mob properties;
@@ -30,11 +31,14 @@ game.Spider = me.Entity.extend({
 	  this.stage = 'random'; //chase, attack, dead, respawn
     this.randomlenght = 0;
     this.timetospawn = 100+Math.round(Math.random()*100,0);
-    this.respawnX=this.pos.x;
-    this.respawnY=this.pos.y;
+    this.respawnX=this.x;
+    this.respawnY=this.y;
     this.sensedistance = 64;
     this.alwaysUpdate= true;
     this.direction = 'left';
+
+
+		
 
     // animations
     this.renderable.addAnimation('right',[256,272]);
@@ -152,10 +156,10 @@ onInteract: function(obj){
 },
 
 doBounce: function(res,obj) {
-	if (res.pos.x < 0 && obj.body.vel.x < 0){
+	if (res.x < 0 && obj.body.vel.x < 0){
 		obj.body.vel.x = 0;
 	};
-	if (res.pos.x > 0 && obj.body.vel.x > 0){
+	if (res.x > 0 && obj.body.vel.x > 0){
 		obj.body.vel.x = 0;
 	}
 	if (res.y<0 && obj.body.vel.y<0){
@@ -187,19 +191,24 @@ doRandomWalk: function (){
 	   this.randomlenght -=1;
    };   
    // test if player is near
-	var difx = (this.pos.x - player.pos.x)
-	var dify = (this.pos.y - player.pos.y)
-	var distplayer = Math.hypot(difx,dify);
-	if (distplayer <= this.sensedistance) {
-		this.stage = 'chase'
-	};  
+	 var player =  me.game.world.getChildByName("PlayerEntity")[0]
+	 if(player!=null) {
+			var difx = (this.pos.x - player.pos.x)
+			var dify = (this.pos.y - player.pos.y)
+			var distplayer = Math.hypot(difx,dify);
+			if (distplayer <= this.sensedistance) {
+				this.stage = 'chase'
+			};  
+	}
 },
    
 doChaseWalk: function (){
    // find preference direction
-   var difx = (this.pos.x - player.pos.x)
-   var dify = (this.pos.y - player.pos.y)
-   
+	 var player =  me.game.world.getChildByName("PlayerEntity")[0]
+	 if(player!= null){
+   		var difx = (this.pos.x - player.pos.x)
+   		var dify = (this.pos.y - player.pos.y)
+   }
    if (Math.abs(Math.abs(difx)-Math.abs(dify)) >= 16) {
 	   if (Math.abs(difx) >= Math.abs(dify) && Math.abs(difx) > 16){
 			if (difx >= 0) {

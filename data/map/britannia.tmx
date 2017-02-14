@@ -172,7 +172,6 @@
     <property name="image" value="tiny_dungeon_monsters"/>
    </properties>
   </object>
-  <object id="51" gid="661" x="128" y="160" width="16" height="16"/>
  </objectgroup>
  <objectgroup name="zones">
   <object id="50" name="MobZone" x="16" y="176" width="112" height="64">
