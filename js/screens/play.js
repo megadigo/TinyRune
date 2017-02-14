@@ -27,7 +27,7 @@ game.PlayScreen = me.ScreenObject.extend({
 				newmob.hp=10;
                 me.game.world.addChild(newmob, mobzz);
             }
-        }
+        } 
         me.game.world.sort();
 
         // reset the score

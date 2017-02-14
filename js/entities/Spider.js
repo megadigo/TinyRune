@@ -11,7 +11,7 @@ game.Spider = me.Entity.extend({
     settings.type = 'mob';
     settings.width = 16;
     settings.height = 16;
-    settings.framewidth = 16;
+    settings.framewidth =  16;
     settings.frameheight = 16;
     // redefine the default shape (used to define path) with a shape matching the renderable
     settings.shapes[0] = new me.Rect(0, 0, settings.framewidth, settings.frameheight);
@@ -41,8 +41,10 @@ game.Spider = me.Entity.extend({
     this.renderable.addAnimation('down',[257,273]);
     this.renderable.addAnimation('up',[258,274]);
     this.renderable.addAnimation('left',[259,275]);
+		this.renderable.addAnimation('dead',[257]);
+		this.renderable.addAnimation('stand',[257]);
     
-    this.renderable.setCurrentAnimation('down');
+    this.renderable.setCurrentAnimation('stand');
   },
 
   /**
@@ -60,27 +62,34 @@ update: function(dt) {
 		if (this.direction == 'right'){
 			this.body.vel.x= this.body.accel.x * me.timer.tick;
 			this.body.vel.y = 0;	
-			this.renderable.angle = -1.57;
+			if (!this.renderable.isCurrentAnimation("right")) {
+        this.renderable.setCurrentAnimation("right");
+      }
 		};
 		if (this.direction == 'left'){
 			this.body.vel.x= -this.body.accel.x * me.timer.tick
 			this.body.vel.y = 0;
-			this.renderable.angle = 1.57;
+			if (!this.renderable.isCurrentAnimation("left")) {
+        this.renderable.setCurrentAnimation("left");
+      }
 		};
 		if (this.direction == 'down'){
 			this.body.vel.y= this.body.accel.y * me.timer.tick;
 			this.body.vel.x = 0;	
-			this.renderable.angle = 0;
+			if (!this.renderable.isCurrentAnimation("down")) {
+        this.renderable.setCurrentAnimation("down");
+      }
 		};
 		if (this.direction == 'up'){
 			this.body.vel.y= -this.body.accel.y * me.timer.tick
 			this.body.vel.x = 0;
-			this.renderable.angle = 3.14;
+			if (!this.renderable.isCurrentAnimation("up")) {
+        this.renderable.setCurrentAnimation("up");
+      }
 		};
 		if (this.direction == 'stand'){
 			this.body.vel.y = 0
 			this.body.vel.x = 0;
-			this.renderable.angle = 0;
 		};
 
 	// update animation if necessary	
