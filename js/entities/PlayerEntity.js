@@ -18,16 +18,15 @@ game.PlayerEntity = me.Entity.extend({
 
     // ensure the player is updated even when outside of the viewport
     this.alwaysUpdate = true;
+    
 
     // define a basic walking animation (using all frames)
     this.renderable.addAnimation("right", [0,16]);
     this.renderable.addAnimation("left", [3,19]);
-    this.renderable.addAnimation("up", [2,18]);
-    this.renderable.addAnimation("down", [1,17]);
-    this.renderable.addAnimation("stand", [1,17]);
 
     // set the standing animation as default
-    this.renderable.setCurrentAnimation("stand");
+    this.renderable.setCurrentAnimation("right");
+    this.facing = "left";
   },
 
   /*
@@ -35,48 +34,37 @@ game.PlayerEntity = me.Entity.extend({
    */
   update : function (dt) {
     if (me.input.isKeyPressed('left')) {
-
-      if (!this.renderable.isCurrentAnimation("left")) {
-        this.renderable.setCurrentAnimation("left");
-      }
-
+      this.facing = "left";
       // update the entity velocity
       this.body.vel.x -= this.body.accel.x * me.timer.tick;
 
     } else if (me.input.isKeyPressed('right')) {
-      
-      if (!this.renderable.isCurrentAnimation("right")) {
-        this.renderable.setCurrentAnimation("right");
-      }
-      
-
+      this.facing = "right";
       // update the entity velocity
       this.body.vel.x += this.body.accel.x * me.timer.tick;
-
-    } else if (me.input.isKeyPressed('up')) {
-      
-      if (!this.renderable.isCurrentAnimation("up")) {
-        this.renderable.setCurrentAnimation("up");
-      }
-      
-
-      // update the entity velocity
-      this.body.vel.y -= this.body.accel.y * me.timer.tick;
-      
-    } else if (me.input.isKeyPressed('down')) {
-      
-      if (!this.renderable.isCurrentAnimation("down")) {
-        this.renderable.setCurrentAnimation("down");
-      }
-    
-      // update the entity velocity
-      this.body.vel.y += this.body.accel.y * me.timer.tick;
-      
     } else {
       this.body.vel.x = 0;
+    }
+
+    if (me.input.isKeyPressed('up')) {  
+      // update the entity velocity
+      this.body.vel.y -= this.body.accel.y * me.timer.tick;      
+    } else if (me.input.isKeyPressed('down')) {
+      // update the entity velocity
+      this.body.vel.y += this.body.accel.y * me.timer.tick;
+    } else {
       this.body.vel.y = 0;
-      // change to the standing animation
-      this.renderable.setCurrentAnimation("stand");
+    }
+
+    // Animate considering the facing
+    if (this.facing == "left") {
+      if (!this.renderable.isCurrentAnimation("left")) {
+          this.renderable.setCurrentAnimation("left");
+      } 
+    } else if (this.facing == "right") {
+      if (!this.renderable.isCurrentAnimation("right")) {
+          this.renderable.setCurrentAnimation("right");
+      }
     }
 
     // apply physics to the body (this moves the entity)

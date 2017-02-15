@@ -7,7 +7,7 @@ game.PlayScreen = me.ScreenObject.extend({
          // load a level
         me.levelDirector.loadLevel("britannia");
 
-        var player = me.game.world.getChildByName("PlayerEntity")[0];
+        player = me.game.world.getChildByName("PlayerEntity")[0];
         
         // mobzones
         var mobzones = me.game.world.getChildByName("MobZone");

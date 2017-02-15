@@ -1,5 +1,7 @@
 /* Globals */
 
+var player = {};
+
 /* game namespace */
 var game = {
   /**
@@ -13,7 +15,7 @@ var game = {
   // Run on page load.
   onload : function () {
     // Initialize the video.
-    if (!me.video.init(160, 120, {wrapper : "screen", scale : "none"})) {
+    if (!me.video.init(320, 240, {wrapper : "screen", scale : "none"})) {
       alert("Your browser does not support HTML5 canvas.");
       return;
     }
@@ -44,7 +46,7 @@ var game = {
     me.state.set(me.state.PLAY, new game.PlayScreen());
 
     // add our player entity in the entity pool
-    me.pool.register("MainPlayer", game.PlayerEntity);
+    me.pool.register("PlayerEntity", game.PlayerEntity);
     me.pool.register("MobZone", game.MobZone);
     me.pool.register("Spider", game.Spider);
     me.pool.register("SpiderBoss", game.SpiderBoss);

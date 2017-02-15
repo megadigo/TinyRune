@@ -165,7 +165,7 @@
 </data>
  </layer>
  <objectgroup name="Objects">
-  <object id="49" name="MainPlayer" x="112" y="80" width="16" height="16">
+  <object id="49" name="PlayerEntity" x="112" y="80" width="16" height="16">
    <properties>
     <property name="frameheight" value="16"/>
     <property name="framewidth" value="16"/>
