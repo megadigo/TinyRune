@@ -14,32 +14,41 @@ game.Spider = me.Entity.extend({
     settings.height = 16;
     settings.framewidth =  16;
     settings.frameheight = 16;
+		
+		// entity settings
+		this.hp = settings.hp
+    this.damage= settings.damage;
+    this.hc = settings.hc;
+		this.sensedistance = settings.sensedistance;
+		this.timetospawn = settings.timetospawn;
+
     // call the parent constructor
     this._super(me.Entity, 'init', [x, y , settings]);
     
 		// mob properties;
-    this.hp = 100;
-    this.damage= 10;
-    this.hc = 0.2;
     this.body.collisionType = me.collision.types.ENEMY_OBJECT;
 	  this.body.setVelocity(0.5, 0.5);
 	  this.body.gravity = 0;
 
+		// vars
     this.updateme = true;
 	  this.collidable = true;
 	  this.stage = 'random'; //chase, attack, dead, respawn
     this.randomlenght = 0;
-    this.timetospawn = 100+Math.round(Math.random()*100,0);
-    this.respawnX=this.x;
-    this.respawnY=this.y;
-    this.sensedistance = 64;
+    
+    this.respawnX = this.x;
+    this.respawnY = this.y;
+    
     this.alwaysUpdate= true;
     
     // animations
-    this.renderable.addAnimation('right',[256,272]);
-    this.renderable.addAnimation('left',[259,275]);
-		this.renderable.addAnimation('dead',[257]);
-    this.renderable.setCurrentAnimation('left');
+		
+    this.renderable.addAnimation('walk.right',[256,272]);
+    this.renderable.addAnimation('walk.left',[259,275]);
+		this.renderable.addAnimation('stand.right',[256]);
+    this.renderable.addAnimation('stand.left',[259]);
+		this.renderable.addAnimation('stand.dead',[257]);
+    this.renderable.setCurrentAnimation('stand.left');
 		this.direction = 'left';
 		this.facing ="left";
   },
@@ -81,17 +90,29 @@ update: function(dt) {
 
 	// update animation if necessary	
 	if (this.stage == 'dead') {
-		if (!this.renderable.isCurrentAnimation('dead')) {
-			this.renderable.setCurrentAnimation('dead');
+		if (!this.renderable.isCurrentAnimation('stand.dead')) {
+			this.renderable.setCurrentAnimation('stand.dead');
 		}
 	} else {
-		if (this.facing =="left") {
-			if (!this.renderable.isCurrentAnimation('left')) {
-				this.renderable.setCurrentAnimation('left');
-			}			
-		} else if (this.facing =="right") {
-			if (!this.renderable.isCurrentAnimation('right')) {
-				this.renderable.setCurrentAnimation('right');
+		if (this.body.vel.y != 0 || this.body.vel.x != 0) {
+			if (this.facing =="left") {
+				if (!this.renderable.isCurrentAnimation('walk.left')) {
+					this.renderable.setCurrentAnimation('walk.left');
+				}			
+			} else if (this.facing =="right") {
+				if (!this.renderable.isCurrentAnimation('walk.right')) {
+					this.renderable.setCurrentAnimation('walk.right');
+				}
+			}
+		} else {
+			if (this.facing =="left") {
+				if (!this.renderable.isCurrentAnimation('stand.left')) {
+					this.renderable.setCurrentAnimation('stand.left');
+				}			
+			} else if (this.facing =="right") {
+				if (!this.renderable.isCurrentAnimation('stand.right')) {
+					this.renderable.setCurrentAnimation('stand.right');
+				}
 			}
 		}
 	}

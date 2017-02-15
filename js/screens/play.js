@@ -24,11 +24,16 @@ game.PlayScreen = me.ScreenObject.extend({
 			var mobzz = mobzone.z;
             var mobzw = mobzone.width;
             var mobzh = mobzone.height;
+            var mobzlevel = mobzone.level;
             for (var c=0;c<mobcount;c++){
                 var mobx = mobzx + Math.round(Math.random() * mobzw,0);
                 var moby = mobzy + Math.round(Math.random() * mobzh,0);
+                settings.hp = 100 * mobzlevel;
+                settings.damage = mobzlevel * 10 ;
+                settings.hc = mobzlevel / 20;
+                settings.sensedistance = 64;
+                settings.timetospawn = 100 + Math.round(Math.random() * 100,0);
                 newmob = me.pool.pull(mob, mobx, moby, settings);
-				newmob.hp=10;
                 me.game.world.addChild(newmob, mobzz);
             }
         } 

@@ -21,11 +21,13 @@ game.PlayerEntity = me.Entity.extend({
     
 
     // define a basic walking animation (using all frames)
-    this.renderable.addAnimation("right", [0,16]);
-    this.renderable.addAnimation("left", [3,19]);
+    this.renderable.addAnimation("walk.right", [0,16]);
+    this.renderable.addAnimation("walk.left", [3,19]);
+    this.renderable.addAnimation("stand.right", [0]);
+    this.renderable.addAnimation("stand.left", [3]);
 
     // set the standing animation as default
-    this.renderable.setCurrentAnimation("right");
+    this.renderable.setCurrentAnimation("stand.right");
     this.facing = "left";
   },
 
@@ -57,15 +59,28 @@ game.PlayerEntity = me.Entity.extend({
     }
 
     // Animate considering the facing
-    if (this.facing == "left") {
-      if (!this.renderable.isCurrentAnimation("left")) {
-          this.renderable.setCurrentAnimation("left");
+    if (this.body.vel.y != 0 || this.body.vel.x != 0) {
+      if (this.facing == "left") {
+        if (!this.renderable.isCurrentAnimation("walk.left")) {
+            this.renderable.setCurrentAnimation("walk.left");
+        } 
+      } else if (this.facing == "right") {
+        if (!this.renderable.isCurrentAnimation("walk.right")) {
+            this.renderable.setCurrentAnimation("walk.right");
+        }
       } 
-    } else if (this.facing == "right") {
-      if (!this.renderable.isCurrentAnimation("right")) {
-          this.renderable.setCurrentAnimation("right");
-      }
+    } else {
+      if (this.facing == "left") {
+        if (!this.renderable.isCurrentAnimation("stand.left")) {
+            this.renderable.setCurrentAnimation("stand.left");
+        } 
+      } else if (this.facing == "right") {
+        if (!this.renderable.isCurrentAnimation("stand.right")) {
+            this.renderable.setCurrentAnimation("stand.right");
+        }
+      } 
     }
+    
 
     // apply physics to the body (this moves the entity)
     this.body.update(dt);
