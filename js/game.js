@@ -47,9 +47,8 @@ var game = {
 
     // add our player entity in the entity pool
     me.pool.register("PlayerEntity", game.PlayerEntity);
-    me.pool.register("MobZone", game.MobZone);
     me.pool.register("Spider", game.Spider);
-    me.pool.register("SpiderBoss", game.SpiderBoss);
+    me.pool.register("MobZone", game.MobZone);
 
     // enable the keyboard
     me.input.bindKey(me.input.KEY.LEFT,  "left");

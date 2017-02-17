@@ -3,18 +3,16 @@
  */
 game.Spider = me.Entity.extend({
   init: function (x, y, settings) {
-    
-		// player for distances
-
-
-    // settings
+  
+    // settings anim
     settings.image = "tiny_dungeon_monsters";
-    settings.type = 'mob';
+    
     settings.width = 16;
     settings.height = 16;
     settings.framewidth =  16;
     settings.frameheight = 16;
-		
+		settings.type = 'mob';
+
 		// entity settings
 		this.hp = settings.hp
     this.damage= settings.damage;

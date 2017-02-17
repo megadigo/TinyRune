@@ -9,6 +9,7 @@ game.PlayScreen = me.ScreenObject.extend({
 
         player = me.game.world.getChildByName("PlayerEntity")[0];
         
+/*
         // mobzones
         var mobzones = me.game.world.getChildByName("MobZone");
         var mobzone = {};
@@ -37,10 +38,9 @@ game.PlayScreen = me.ScreenObject.extend({
                 me.game.world.addChild(newmob, mobzz);
             }
         } 
+*/
         me.game.world.sort();
-    
 
-        
         // reset the score
         game.data.score = 0;
 
