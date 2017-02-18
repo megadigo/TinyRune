@@ -11,27 +11,27 @@ game.Spider = me.Entity.extend({
     settings.height = 16;
     settings.framewidth =  16;
     settings.frameheight = 16;
-		settings.type = 'mob';
+	settings.type = 'mob';
 
-		// entity settings
-		this.hp = settings.hp
+	// entity settings
+	this.hp = settings.hp
     this.damage= settings.damage;
     this.hc = settings.hc;
-		this.sensedistance = settings.sensedistance;
-		this.timetospawn = settings.timetospawn;
+	this.sensedistance = settings.sensedistance;
+	this.timetospawn = settings.timetospawn;
 
     // call the parent constructor
     this._super(me.Entity, 'init', [x, y , settings]);
     
-		// mob properties;
+	// mob properties;
     this.body.collisionType = me.collision.types.ENEMY_OBJECT;
-	  this.body.setVelocity(0.5, 0.5);
-	  this.body.gravity = 0;
+	this.body.setVelocity(0.5, 0.5);
+	this.body.gravity = 0;
 
 		// vars
     this.updateme = true;
-	  this.collidable = true;
-	  this.stage = 'random'; //chase, attack, dead, respawn
+	this.collidable = true;
+	this.stage = 'random'; //chase, attack, dead, respawn
     this.randomlenght = 0;
     
     this.respawnX = this.x;

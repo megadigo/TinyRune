@@ -7,7 +7,18 @@ game.PlayScreen = me.ScreenObject.extend({
          // load a level
         me.levelDirector.loadLevel("britannia");
 
-        player = me.game.world.getChildByName("PlayerEntity")[0];
+        // Add the Player to map
+        var settings = {};
+        //player settings
+        settings.hp = 100;
+        settings.damage = 100;
+        settings.hc = 100;
+        // player positions
+        var px = 100;
+        var py = 100;
+        player = me.pool.pull("PlayerEntity", px, py, settings);
+	    me.game.world.addChild(player, 6);
+
         
         me.game.world.sort();
 

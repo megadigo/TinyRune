@@ -6,6 +6,19 @@ game.PlayerEntity = me.Entity.extend({
    * constructor
    */
   init : function (x, y, settings) {
+    // setting animation
+    settings.image="tiny_dungeon_monsters";
+    settings.width = 16;
+    settings.height = 16;
+    settings.framewidth =  16;
+    settings.frameheight = 16;
+		settings.type = 'player';
+
+    // entities settings
+    this.hp = settings.hp;
+    this.damage = settings.damage;
+    this.hc = settings.hc;
+
     // call the constructor
     this._super(me.Entity, 'init', [x, y, settings]);
 
@@ -18,7 +31,6 @@ game.PlayerEntity = me.Entity.extend({
 
     // ensure the player is updated even when outside of the viewport
     this.alwaysUpdate = true;
-    
 
     // define a basic walking animation (using all frames)
     this.renderable.addAnimation("walk.right", [0,16]);
