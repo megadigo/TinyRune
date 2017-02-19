@@ -6,19 +6,6 @@ game.PlayerEntity = me.Entity.extend({
    * constructor
    */
   init : function (x, y, settings) {
-    // setting animation
-    settings.image="tiny_dungeon_monsters";
-    settings.width = 16;
-    settings.height = 16;
-    settings.framewidth =  16;
-    settings.frameheight = 16;
-		settings.type = 'player';
-
-    // entities settings
-    this.hp = settings.hp;
-    this.damage = settings.damage;
-    this.hc = settings.hc;
-
     // call the constructor
     this._super(me.Entity, 'init', [x, y, settings]);
 
@@ -31,6 +18,7 @@ game.PlayerEntity = me.Entity.extend({
 
     // ensure the player is updated even when outside of the viewport
     this.alwaysUpdate = true;
+    
 
     // define a basic walking animation (using all frames)
     this.renderable.addAnimation("walk.right", [0,16]);
@@ -46,6 +34,7 @@ game.PlayerEntity = me.Entity.extend({
   /*
    * update the player pos
    */
+  // left right
   update : function (dt) {
     if (me.input.isKeyPressed('left')) {
       this.facing = "left";
@@ -59,7 +48,7 @@ game.PlayerEntity = me.Entity.extend({
     } else {
       this.body.vel.x = 0;
     }
-
+    // up down
     if (me.input.isKeyPressed('up')) {  
       // update the entity velocity
       this.body.vel.y -= this.body.accel.y * me.timer.tick;      
@@ -69,6 +58,8 @@ game.PlayerEntity = me.Entity.extend({
     } else {
       this.body.vel.y = 0;
     }
+    // interact action
+
 
     // Animate considering the facing
     if (this.body.vel.y != 0 || this.body.vel.x != 0) {
