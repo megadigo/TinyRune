@@ -6,6 +6,12 @@ game.PlayerEntity = me.Entity.extend({
    * constructor
    */
   init : function (x, y, settings) {
+    settings.image="tiny_dungeon_monsters";
+    settings.width = 16;
+    settings.height = 16;
+    settings.framewidth =  16;
+    settings.frameheight = 16;
+    settings.type = 'player';
     // call the constructor
     this._super(me.Entity, 'init', [x, y, settings]);
 
