@@ -24,16 +24,19 @@ game.PlayerEntity = me.Entity.extend({
 
     // ensure the player is updated even when outside of the viewport
     this.alwaysUpdate = true;
-    
+    this.stance = "walk";
 
     // define a basic walking animation (using all frames)
     this.renderable.addAnimation("walk.right", [0,16]);
-    this.renderable.addAnimation("walk.left", [3,19]);
+    this.renderable.addAnimation("walk.left", [1,17]);
+    this.renderable.addAnimation("attack.right", [2,18]);
+    this.renderable.addAnimation("attack.left", [3,19]);
     this.renderable.addAnimation("stand.right", [0]);
-    this.renderable.addAnimation("stand.left", [3]);
+    this.renderable.addAnimation("stand.left", [1]);
+    
 
     // set the standing animation as default
-    this.renderable.setCurrentAnimation("stand.right");
+    this.renderable.setCurrentAnimation(this.stance + ".right");
     this.facing = "left";
   },
 
@@ -64,28 +67,30 @@ game.PlayerEntity = me.Entity.extend({
     } else {
       this.body.vel.y = 0;
     }
-    // interact action
-
+    // interact and action
+    if(me.input.isKeyPressed('action')) {
+        this.stance = "attack";
+    }
 
     // Animate considering the facing
     if (this.body.vel.y != 0 || this.body.vel.x != 0) {
       if (this.facing == "left") {
-        if (!this.renderable.isCurrentAnimation("walk.left")) {
-            this.renderable.setCurrentAnimation("walk.left");
+        if (!this.renderable.isCurrentAnimation(this.stance + ".left")) {
+            this.renderable.setCurrentAnimation(this.stance + ".left");
         } 
       } else if (this.facing == "right") {
-        if (!this.renderable.isCurrentAnimation("walk.right")) {
-            this.renderable.setCurrentAnimation("walk.right");
+        if (!this.renderable.isCurrentAnimation(this.stance + ".right")) {
+            this.renderable.setCurrentAnimation(this.stance + ".right");
         }
       } 
     } else {
       if (this.facing == "left") {
-        if (!this.renderable.isCurrentAnimation("stand.left")) {
-            this.renderable.setCurrentAnimation("stand.left");
+        if (!this.renderable.isCurrentAnimation(this.stance + ".left")) {
+            this.renderable.setCurrentAnimation(this.stance + ".left");
         } 
       } else if (this.facing == "right") {
-        if (!this.renderable.isCurrentAnimation("stand.right")) {
-            this.renderable.setCurrentAnimation("stand.right");
+        if (!this.renderable.isCurrentAnimation(this.stance + ".right")) {
+            this.renderable.setCurrentAnimation(this.stance + ".right");
         }
       } 
     }

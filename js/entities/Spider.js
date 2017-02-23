@@ -42,9 +42,9 @@ game.Spider = me.Entity.extend({
     // animations
 		
     this.renderable.addAnimation('walk.right',[256,272]);
-    this.renderable.addAnimation('walk.left',[259,275]);
+    this.renderable.addAnimation('walk.left',[257,273]);
 		this.renderable.addAnimation('stand.right',[256]);
-    this.renderable.addAnimation('stand.left',[259]);
+    this.renderable.addAnimation('stand.left',[257]);
 		this.renderable.addAnimation('stand.dead',[257]);
     this.renderable.setCurrentAnimation('stand.left');
 		this.direction = 'left';
