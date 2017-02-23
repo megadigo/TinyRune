@@ -29,8 +29,8 @@ game.PlayerEntity = me.Entity.extend({
     // define a basic walking animation (using all frames)
     this.renderable.addAnimation("walk.right", [0,16]);
     this.renderable.addAnimation("walk.left", [1,17]);
-    this.renderable.addAnimation("attack.right", [2,18]);
-    this.renderable.addAnimation("attack.left", [3,19]);
+    this.renderable.addAnimation("attack.right", [2,18,0,16],50);
+    this.renderable.addAnimation("attack.left", [3,19,1,17],50);
     this.renderable.addAnimation("stand.right", [0]);
     this.renderable.addAnimation("stand.left", [1]);
     
