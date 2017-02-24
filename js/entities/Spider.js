@@ -143,9 +143,11 @@ onCollision : function (response, other) {
 			colide = false;
 			break;
 		case me.collision.types.PLAYER_OBJECT:
-			response.b.doDamage(this, this.hci, this.damage);
-			colide = true;
-			break;
+			if (response.stance ="idle") {
+				response.b.doDamage(this, this.hci, this.damage);
+				colide = true;
+				break;
+			}
 		default:
 			colide = false;
 	};

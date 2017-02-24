@@ -24,19 +24,19 @@ game.PlayerEntity = me.Entity.extend({
 
     // ensure the player is updated even when outside of the viewport
     this.alwaysUpdate = true;
-    this.stance = "walk";
+    this.stance = "idle";
 
     // define a basic walking animation (using all frames)
     this.renderable.addAnimation("walk.right", [0,16]);
     this.renderable.addAnimation("walk.left", [1,17]);
-    this.renderable.addAnimation("attack.right", [2,18,0,16],50);
-    this.renderable.addAnimation("attack.left", [3,19,1,17],50);
+    this.renderable.addAnimation("attack.right", [2,18],100);
+    this.renderable.addAnimation("attack.left", [3,19],100);
     this.renderable.addAnimation("stand.right", [0]);
     this.renderable.addAnimation("stand.left", [1]);
     
 
     // set the standing animation as default
-    this.renderable.setCurrentAnimation(this.stance + ".right");
+    this.renderable.setCurrentAnimation("walk.right");
     this.facing = "left";
   },
 
@@ -73,29 +73,25 @@ game.PlayerEntity = me.Entity.extend({
     }
 
     // Animate considering the facing
-    if (this.body.vel.y != 0 || this.body.vel.x != 0) {
-      if (this.facing == "left") {
-        if (!this.renderable.isCurrentAnimation(this.stance + ".left")) {
-            this.renderable.setCurrentAnimation(this.stance + ".left");
-        } 
-      } else if (this.facing == "right") {
-        if (!this.renderable.isCurrentAnimation(this.stance + ".right")) {
-            this.renderable.setCurrentAnimation(this.stance + ".right");
+    if (this.stance == "idle") {
+        if (this.body.vel.y != 0 || this.body.vel.x != 0) {
+            if (!this.renderable.isCurrentAnimation("walk." + this.facing)) {
+                this.renderable.setCurrentAnimation("walk." + this.facing);
+            } 
+        } else {
+            if (!this.renderable.isCurrentAnimation("stand." + this.facing)) {
+                this.renderable.setCurrentAnimation("stand." + this.facing);
+            } 
         }
-      } 
     } else {
-      if (this.facing == "left") {
-        if (!this.renderable.isCurrentAnimation(this.stance + ".left")) {
-            this.renderable.setCurrentAnimation(this.stance + ".left");
-        } 
-      } else if (this.facing == "right") {
-        if (!this.renderable.isCurrentAnimation(this.stance + ".right")) {
-            this.renderable.setCurrentAnimation(this.stance + ".right");
-        }
+      if (!this.renderable.isCurrentAnimation("attack." + this.facing)) {
+                this.renderable.setCurrentAnimation("attack." + this.facing,  (function () {
+                  this.stance = "idle";
+                  return false; // do not reset to first frame
+                }).bind(this));
       } 
-    }
-    
 
+    }
     // apply physics to the body (this moves the entity)
     this.body.update(dt);
 
