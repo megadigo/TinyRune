@@ -11,7 +11,7 @@ game.Spider = me.Entity.extend({
     settings.height = 16;
     settings.framewidth =  16;
     settings.frameheight = 16;
-	settings.type = 'mob';
+		settings.type = 'mob';
 
 	// entity settings
 	this.hp = settings.hp
@@ -24,9 +24,12 @@ game.Spider = me.Entity.extend({
     this._super(me.Entity, 'init', [x, y , settings]);
     
 	// mob properties;
-    this.body.collisionType = me.collision.types.ENEMY_OBJECT;
+	this.body.collisionType = me.collision.types.ENEMY_OBJECT;
 	this.body.setVelocity(0.5, 0.5);
 	this.body.gravity = 0;
+	this.renderable.anchorPoint.set(0.5, 0.75);
+	this.body.removeShapeAt(0);
+  this.body.addShape(new me.Rect(0, 0, settings.width, 8));
 
 		// vars
     this.updateme = true;
@@ -165,10 +168,10 @@ doBounce: function(res,obj) {
 	if (res.x > 0 && obj.body.vel.x > 0){
 		obj.body.vel.x = 0;
 	}
-	if (res.y<0 && obj.body.vel.y<0){
+	if (res.y < 0 && obj.body.vel.y < 0){
 		obj.body.vel.y = 0;
 	};
-	if (res.y>0 && obj.body.vel.y>0){
+	if (res.y > 0 && obj.body.vel.y > 0){
 		obj.body.vel.y = 0;
 	}
 },
@@ -249,17 +252,17 @@ doDead: function(){
 	}
    if (this.timetospawn == 0){
 		this.stage = 'respawn';
-		this.timetospawn=100+Math.round(Math.random()*100,0);
+		this.timetospawn = 100 + Math.round(Math.random()*100,0);
    } else {
-	   this.timetospawn -=1
+	   this.timetospawn -= 1
    };
 },
    
 doRespawn: function(){
  this.pos.x =  (this.respawnX - 64) + (Math.random() * 128)
  this.pos.y =  (this.respawnY - 64) + (Math.random() * 128);
- this.direction ='left';
- this.stance ='normal';
+ this.direction = 'left';
+ this.stance = 'normal';
  this.stage = 'random';
  this.hp = Math.random() * 50;
  this.collidable = true;
@@ -270,19 +273,19 @@ doDamage: function(attacker,hci,damage) {
 	this.hp -= damage;
 	// little bounce
 	if (attacker.direction == 'left') {
-  this.pos.x-=10
+  	this.pos.x -= 10
 	}; 
 	if (attacker.direction == 'right') {
-  this.pos.x+=10
+  	this.pos.x += 10
 	};
 	if (attacker.direction == 'up') {
-		this.pos.y-=10
+		this.pos.y -= 10
 	};
 	if (attacker.direction == 'down') { 
-		this.pos.y+=10
+		this.pos.y += 10
 	};
 	// check if die
-	if (this.hp<=0){
+	if (this.hp <= 0){
 		this.stage = 'dead'
 		//me.game.remove(this);
 	}

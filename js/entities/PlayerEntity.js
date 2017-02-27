@@ -12,12 +12,18 @@ game.PlayerEntity = me.Entity.extend({
     settings.framewidth =  16;
     settings.frameheight = 16;
     settings.type = 'player';
+    
     // call the constructor
     this._super(me.Entity, 'init', [x, y, settings]);
 
     // set the default horizontal & vertical speed (accel vector)
     this.body.setVelocity(1, 1);
     this.body.gravity = 0;
+	  this.body.removeShapeAt(0);
+    this.body.addShape(new me.Rect(0, 0, 14, 16));
+    
+    this.body.collisionType = me.collision.types.PLAYER_OBJECT;
+    
     
     // set the display to follow our position on both axis
     me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
@@ -73,6 +79,11 @@ game.PlayerEntity = me.Entity.extend({
     }
 
     // Animate considering the facing
+    if( this.facing == "left") {
+      this.renderable.anchorPoint.set(0.75, 0.5);
+    } else {
+      this.renderable.anchorPoint.set(0.25, 0.5);
+    }
     if (this.stance == "idle") {
         if (this.body.vel.y != 0 || this.body.vel.x != 0) {
             if (!this.renderable.isCurrentAnimation("walk." + this.facing)) {
@@ -109,5 +120,11 @@ game.PlayerEntity = me.Entity.extend({
   onCollision : function (response, other) {
     // Make all other objects solid
     return true;
+  },
+
+  doDamage: function(attacker){
+
+
+
   }
 });

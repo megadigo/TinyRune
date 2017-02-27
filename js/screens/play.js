@@ -18,7 +18,6 @@ game.PlayScreen = me.ScreenObject.extend({
         var py = 100;
         player = me.pool.pull("PlayerEntity", px, py, settings);
 	    me.game.world.addChild(player, 6);
-
         
         me.game.world.sort();
 
