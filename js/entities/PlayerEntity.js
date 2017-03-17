@@ -23,14 +23,16 @@ game.PlayerEntity = me.Entity.extend({
     this.body.addShape(new me.Rect(0, 0, 14, 16));
     
     this.body.collisionType = me.collision.types.PLAYER_OBJECT;
-    
-    
+        
     // set the display to follow our position on both axis
     me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
 
     // ensure the player is updated even when outside of the viewport
     this.alwaysUpdate = true;
     this.stance = "idle";
+    // player props
+    this.hp = 100;
+    this.damage = 10;
 
     // define a basic walking animation (using all frames)
     this.renderable.addAnimation("walk.right", [0,16]);
@@ -98,6 +100,7 @@ game.PlayerEntity = me.Entity.extend({
       if (!this.renderable.isCurrentAnimation("attack." + this.facing)) {
                 this.renderable.setCurrentAnimation("attack." + this.facing,  (function () {
                   this.stance = "idle";
+
                   return false; // do not reset to first frame
                 }).bind(this));
       } 
@@ -123,8 +126,8 @@ game.PlayerEntity = me.Entity.extend({
   },
 
   doDamage: function(attacker){
-
-
+      this.hp = this.hp - attacker.damage;
+      
 
   }
 });

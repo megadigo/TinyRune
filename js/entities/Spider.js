@@ -15,8 +15,8 @@ game.Spider = me.Entity.extend({
 
 	// entity settings
 	this.hp = settings.hp
-    this.damage= settings.damage;
-    this.hc = settings.hc;
+  this.damage= settings.damage;
+  this.hc = settings.hc;
 	this.sensedistance = settings.sensedistance;
 	this.timetospawn = settings.timetospawn;
 
