@@ -98,11 +98,11 @@ game.PlayerEntity = me.Entity.extend({
         }
     } else {
       if (!this.renderable.isCurrentAnimation("attack." + this.facing)) {
-                this.renderable.setCurrentAnimation("attack." + this.facing,  (function () {
-                  this.stance = "idle";
-
-                  return false; // do not reset to first frame
-                }).bind(this));
+        this.renderable.setCurrentAnimation("attack." + this.facing,  
+          (function (){
+              this.stance = "idle";
+              return false; // do not reset to first frame
+           }).bind(this));
       } 
 
     }
@@ -127,7 +127,11 @@ game.PlayerEntity = me.Entity.extend({
 
   doDamage: function(attacker){
       this.hp = this.hp - attacker.damage;
-      
-
+      if (attacker.facing == 'left') {
+        this.pos.x -= 3
+      }; 
+      if (attacker.facing == 'right') {
+        this.pos.x += 3
+      };
   }
 });

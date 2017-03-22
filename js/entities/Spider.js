@@ -37,8 +37,8 @@ game.Spider = me.Entity.extend({
 	this.stage = 'random'; //chase, attack, dead, respawn
     this.randomlenght = 0;
     
-    this.respawnX = this.x;
-    this.respawnY = this.y;
+    this.respawnX = this.pos.x;
+    this.respawnY = this.pos.y;
     
     this.alwaysUpdate= true;
     
@@ -48,7 +48,7 @@ game.Spider = me.Entity.extend({
     this.renderable.addAnimation('walk.left',[257,273]);
 		this.renderable.addAnimation('stand.right',[256]);
     this.renderable.addAnimation('stand.left',[257]);
-		this.renderable.addAnimation('stand.dead',[257]);
+		this.renderable.addAnimation('stand.dead',[492]);
     this.renderable.setCurrentAnimation('stand.left');
 		this.direction = 'left';
 		this.facing ="left";
@@ -146,8 +146,12 @@ onCollision : function (response, other) {
 			colide = false;
 			break;
 		case me.collision.types.PLAYER_OBJECT:
-			if (response.stance ="idle") {
+			if (response.b.stance == "idle") {
 				response.b.doDamage(this, this.hci, this.damage);
+				colide = true;
+				break;
+			} else if(response.b.stance == "attack") {
+				response.a.doDamage(response.b,response.b.hci,response.b.damage );
 				colide = true;
 				break;
 			}
@@ -247,8 +251,9 @@ doDead: function(){
    this.collidable = false;
    this.stance='dead'
    this.direction='stand';
-   if (!this.renderable.isCurrentAnimation('dead')) {
-		this.renderable.setCurrentAnimation('dead');
+	 this.body.collisionType = me.collision.types.NONE;
+   if (!this.renderable.isCurrentAnimation('stand.dead')) {
+		this.renderable.setCurrentAnimation('stand.dead');
 	}
    if (this.timetospawn == 0){
 		this.stage = 'respawn';
@@ -259,6 +264,7 @@ doDead: function(){
 },
    
 doRespawn: function(){
+ this.body.collisionType = me.collision.types.ENEMY_OBJECT;
  this.pos.x =  (this.respawnX - 64) + (Math.random() * 128)
  this.pos.y =  (this.respawnY - 64) + (Math.random() * 128);
  this.direction = 'left';
@@ -268,21 +274,15 @@ doRespawn: function(){
  this.collidable = true;
 },
   
-doDamage: function(attacker,hci,damage) {
+doDamage: function(attacker, hci, damage) {
 	// calculate hc and do damage;   		
 	this.hp -= damage;
 	// little bounce
-	if (attacker.direction == 'left') {
-  	this.pos.x -= 10
+	if (attacker.facing == 'left') {
+  	this.pos.x -= 3
 	}; 
-	if (attacker.direction == 'right') {
-  	this.pos.x += 10
-	};
-	if (attacker.direction == 'up') {
-		this.pos.y -= 10
-	};
-	if (attacker.direction == 'down') { 
-		this.pos.y += 10
+	if (attacker.facing == 'right') {
+  	this.pos.x += 3
 	};
 	// check if die
 	if (this.hp <= 0){
@@ -290,5 +290,4 @@ doDamage: function(attacker,hci,damage) {
 		//me.game.remove(this);
 	}
 }
-
 });

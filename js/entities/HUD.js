@@ -21,11 +21,10 @@ game.HUD.Container = me.Container.extend({
         this.name = "HUD";
 
         // add our child score object at the top left corner
-        this.addChild(new game.HUD.ScoreItem(5, 5));
+        this.addChild(new game.HUD.ScoreItem(10, 10));
+        this.addChild(new game.HUD.Border(0, 0));
     }
 });
-
-
 /**
  * a basic HUD item to display score
  */
@@ -39,16 +38,8 @@ game.HUD.ScoreItem = me.Renderable.extend({
         // (size does not matter here)
         this._super(me.Renderable, 'init', [x, y, 10, 10]);
 
-        // create the font object
-        this.font = new me.BitmapFont(me.loader.getBinary("PressStart2P"), me.loader.getImage("PressStart2P"));
         this.icon = me.loader.getImage("hp");
-        this.border = me.loader.getImage("border");
-
-
-        // font alignment to right, bottom
-        this.font.textAlign = "right";
-        this.font.textBaseline = "bottom";
-
+        
         // local copy of the global score
         this.playerhp = -1;
     },
@@ -69,27 +60,32 @@ game.HUD.ScoreItem = me.Renderable.extend({
     /**
      * draw the score
      */
-    draw : function (context) {
-        context.drawImage(this.border, this.pos.x, this.pos.y);
-        context.drawImage(this.icon, this.pos.x + 10, this.pos.y + 10);
-        this.font.draw(context, this.playerhp, this.pos.x + x + 36, this.pos.y + y + 4);
+    draw : function (renderer) {
+        nh = this.playerhp / 20;
+        for(i = 1; i <= nh; i++){
+            renderer.drawImage(this.icon, this.pos.x + 10*i, this.pos.y);
+         }
     }
 });
-var borderObject = me.Renderable.extend(
-{   
+/**
+ * a basic HUD to border
+ */
+game.HUD.Border = me.Renderable.extend({
    // constructor
    init: function(x, y)
    {
       // call the parent constructor
-      this.parent(x, y);
-      // create a font
-      this.border = me.loader.getImage("border")
+      this._super(me.Renderable, 'init', [x, y, 0, 0]);
+      this.border = me.loader.getImage("border");
      
    },
+   update : function () {
+        return false;
+    },
    // draw function
    draw : function (context, x, y)
    {
-      context.drawImage(this.border, this.pos.x + x, this.pos.y + y);
+      context.drawImage(this.border, this.pos.x, this.pos.y);
    }
 });
 
